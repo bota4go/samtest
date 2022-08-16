@@ -1,0 +1,59 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: 'bota4go
+
+  Sample SAM Template for bota4go
+
+  '
+Globals:
+  Function:
+    Timeout: 3
+    Tracing: Active
+  Api:
+    TracingEnabled: true
+Resources:
+  Bota4goFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: s3://code-bota4go/461eb25bc9c9196a7cc0535817983f87
+      Handler: app.bota4goLambda
+      Runtime: nodejs16.x
+      Events:
+        bota4go:
+          Type: Api
+          Properties:
+            Path: /bota4goPath
+            Method: get
+    Metadata:
+      SamResourceId: Bota4goFunction
+  HelloWorldFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: s3://code-bota4go/893684335a9ffb854c98a97ab576a2c7
+      Handler: app.lambda_handler
+      Runtime: nodejs16.x
+      Events:
+        HelloWorld:
+          Type: Api
+          Properties:
+            Path: /hello
+            Method: get
+    Metadata:
+      SamResourceId: HelloWorldFunction
+Outputs:
+  HelloWorldApi:
+    Description: API Gateway endpoint URL for Prod stage for Hello World function
+    Value:
+      Fn::Sub: https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/hello/
+  HelloWorldFunction:
+    Description: Hello World Lambda Function ARN
+    Value:
+      Fn::GetAtt:
+      - HelloWorldFunction
+      - Arn
+  HelloWorldFunctionIamRole:
+    Description: Implicit IAM Role created for Hello World function
+    Value:
+      Fn::GetAtt:
+      - HelloWorldFunctionRole
+      - Arn

@@ -17,9 +17,9 @@ Resources:
   Bota4goFunction:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Properties:
-      CodeUri: bota4go/
+      CodeUri: bota4goLambda/
       Handler: app.bota4goLambda
-      Runtime: nodejs10.x
+      Runtime: nodejs16.x
       Events:
         bota4go:
           Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
@@ -32,7 +32,7 @@ Resources:
     Properties:
       CodeUri: hello_world/
       Handler: app.lambda_handler
-      Runtime: python3.7
+      Runtime: nodejs16.x
       Events:
         HelloWorld:
           Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
